@@ -1,9 +1,11 @@
 package com.example.android.soccerscore;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     int scoreTeamA = 0;
@@ -21,6 +23,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if(savedInstanceState!=null){
+            rcardTeamA=savedInstanceState.getInt("rcardA");
+            ycardTeamA=savedInstanceState.getInt("ycardA");
+            scoreTeamA=savedInstanceState.getInt("scoreA");
+        }
+
+        YellowForTeamA(ycardTeamA);
+        YellowForTeamB(ycardTeamB);
+
+        RedForTeamA(rcardTeamA);
+        RedForTeamB(rcardTeamB);
+
+        displayForTeamA(scoreTeamA);
+        displayForTeamB(scoreTeamB);
+
     }
 
 
@@ -34,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         RedForTeamA(rcardTeamA);
     }
 
-    public void display1(View view) {
+    public void setScoreTeamA(View view) {
         scoreTeamA = scoreTeamA + 1;
         displayForTeamA(scoreTeamA);
     }
@@ -58,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Displays the given score for Team A.
      */
-
     public void displayForTeamA(int score) {
         TextView scoreView = (TextView) findViewById(R.id.team_a_score);
         scoreView.setText(String.valueOf(score));
@@ -76,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         RedForTeamB(rcardTeamB);
     }
 
-    public void display1b(View view) {
+    public void setScoreTeamB(View view) {
         scoreTeamB = scoreTeamB + 1;
         displayForTeamB(scoreTeamB);
     }
@@ -127,5 +143,15 @@ public class MainActivity extends AppCompatActivity {
         YellowForTeamA(ycardTeamA);
         RedForTeamA(rcardTeamA);
     }
+
+    Bundle savedInstanceState = new Bundle();
+
+    @Override
+    public void onSaveInstanceState(Bundle currentState) {
+        super.onSaveInstanceState(currentState);
+        currentState.putInt("rcardA",rcardTeamA);
+        currentState.putInt("ycardA",ycardTeamA);
+        currentState.putInt("scoreA",scoreTeamA);
+        }
 
 }
